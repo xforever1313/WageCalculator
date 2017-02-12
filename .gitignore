@@ -1,0 +1,10 @@
+bin
+obj
+*.pfx
+.vs
+lib
+build
+*.opensdf
+*.sdf
+/LogIrcBot/packages
+/LogIrcBot/*.userprefs
