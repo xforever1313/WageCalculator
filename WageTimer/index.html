@@ -3,12 +3,74 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="description" content="How much money have you made since you started the timer?">
     <title>TypeScript HTML App</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
+    <link rel="stylesheet" href="https://files.shendrick.net/common/css/pure/pure-min.css" type="text/css" />
+    <link rel="stylesheet" href="https://files.shendrick.net/common/css/pure/grids-responsive-min.css" type="text/css" />
+    <link rel="stylesheet" href="https://files.shendrick.net/common/css/pure/marketing.css" type="text/css" />
+    <style type="text/css">
+        body
+        {
+        }
+
+        .splash-container
+        {
+            background-color:#003e08;
+        }
+
+        #wageinput
+        {
+            resize: none;
+            white-space:nowrap;
+            color:black;
+        }
+    </style>
     <script src="app.js"></script>
 </head>
 <body>
-    <h1>TypeScript HTML App</h1>
+    <!-- Begin Header -->
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="#">Wage Timer</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="https://github.com/xforever1313/WageCalculator" class="pure-menu-link">GitHub</a></li>
+                <li class="pure-menu-item"><a href="https://shendrick.net" class="pure-menu-link">My Website</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Begin Content -->
+    <div class="splash-container">
+        <div class="splash">
+            <p class="splash-subhead">Amount Earned:</p>
+            <h1 class="splash-head"><span id="amountearned">$00.00</span></h1>
+            <p class="splash-subhead">
+                <noscript>Sorry, you need javascript to run this :(</noscript>
+            </p>
+            <p class="splash-subhead">
+                Your Wage per hour: $<textarea id="wageinput" name="wageinput" rows="1" cols="5"></textarea>
+            </p>
+            <p>
+                <button class="pure-button pure-button-primary" id="startbutton" onclick="timer.startButtonClicked();">Start</button>
+                <button class="pure-button pure-button-primary" id="resetbutton" onclick="timer.resetButtonClicked();">Reset</button>
+            </p>
+            <p class="splash-subhead">
+                Use this tool to see how much money you've made (or lost) since starting the timer.
+            </p>
+        </div>
+    </div>
+    <!-- End Content -->
+
+    <!-- Begin Footer -->
+    <div class="footer l-box is-center">
+        <span>CSS by <a href="http://purecss.io">Pure.css</a>.&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>Idea by my friend, <a href="https://twitter.com/Jgallstar1_tv">Jgallstar1.</a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>Copyright &copy; 2017 Seth Hendrick</span>
+    </div>
+    <!-- End Footer -->
 
     <div id="content"></div>
 </body>
