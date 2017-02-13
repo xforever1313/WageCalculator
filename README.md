@@ -1,5 +1,7 @@
 # Wage Timer
 
+Live at [https://files.shendrick.net/fun/wagetimer/](https://files.shendrick.net/fun/wagetimer/)
+
 ## About
 
 Are you an hourly employee?  Have you ever wanted to see yourself slowly earn money, second-by-second?  Well, now you can with this handy Wage Timer!
