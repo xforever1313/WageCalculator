@@ -17,6 +17,7 @@ class WageTimer {
     resetButton: HTMLButtonElement;
     amountText: HTMLSpanElement;
     wageText: HTMLTextAreaElement;
+    errorText: HTMLSpanElement;
 
     currentWage: number; // The current wage the user gave us.
 
@@ -28,15 +29,23 @@ class WageTimer {
 
     // ---------------- Constructor ----------------
 
-    constructor(startButton: HTMLButtonElement, resetButton: HTMLButtonElement, amountText: HTMLSpanElement, wageText: HTMLTextAreaElement) {
+    constructor(
+        startButton: HTMLButtonElement,
+        resetButton: HTMLButtonElement,
+        amountText: HTMLSpanElement,
+        wageText: HTMLTextAreaElement,
+        errorText: HTMLSpanElement
+    ) {
         this.startButton = startButton;
         this.resetButton = resetButton;
         this.amountText = amountText;
         this.wageText = wageText;
+        this.errorText = errorText;
+
         this.amount = 0.0;
         this.currentWage = 0.0;
         this.wageText.style.borderColor = "black";
-        this.wageText.style.borderWidth = "5px";
+        this.wageText.style.borderWidth = "2px";
         this.currentState = State.Idle;
 
         this.updateUi();
@@ -49,11 +58,15 @@ class WageTimer {
 
             if (this.validateWage()) {
                 this.wageText.style.borderColor = "black";
+                this.wageText.style.color = "black";
+                this.errorText.innerHTML = "&nbsp;";
                 this.timerToken = setInterval(() => this.timerTick(), 1000);
                 this.currentState = State.Running;
             }
             else {
                 this.wageText.style.borderColor = "red";
+                this.wageText.style.color = "red";
+                this.errorText.innerHTML = "Not a valid number";
             }
         }
         else if (this.currentState === State.Running) {
@@ -110,6 +123,7 @@ window.onload = () => {
     var resetButton = <HTMLButtonElement>document.getElementById("resetbutton");
     var amountEarned = <HTMLSpanElement>document.getElementById("amountearned");
     var wageText = <HTMLTextAreaElement>document.getElementById("wageinput");
+    var errorText = <HTMLSpanElement>document.getElementById("errormessage");
 
-    timer = new WageTimer(startButton, resetButton, amountEarned, wageText);
+    timer = new WageTimer(startButton, resetButton, amountEarned, wageText, errorText);
 };

@@ -31,8 +31,10 @@
             white-space:nowrap;
             color:black;
             text-align:center;
+            vertical-align: bottom;
+            justify-content:center;
             font-size:24px;
-            line-height:24px;
+            padding:5px;
         }
 
         .pure-button {
@@ -63,14 +65,17 @@
     <div class="splash-container">
         <div class="splash">
             <p class="splash-subhead">Amount Earned:</p>
-            <h1 class="splash-head"><span id="amountearned">$00.00</span></h1>
+            <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">$00.00</span></h1>
             <p class="splash-subhead">
                 <noscript>Sorry, you need javascript to run this :(</noscript>
             </p>
             <p class="splash-subhead">
-                Your Wage per hour:
+                Input your wage per hour:
                 <div>
-                    <textarea id="wageinput" name="wageinput" rows="1" cols="5"></textarea>
+                    <input id="wageinput" size="10" type="text" />.
+                </div>
+                <div>
+                    <span id="errormessage" style="color:red;">&nbsp;</span>
                 </div>
             </p>
             <p>
