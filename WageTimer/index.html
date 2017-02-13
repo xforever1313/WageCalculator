@@ -14,9 +14,15 @@
         {
         }
 
+        .splash {
+            top: 0px;
+        }
+
         .splash-container
         {
             background-color:#003e08;
+            overflow-y: visible;
+            height:90%;
         }
 
         #wageinput
@@ -24,7 +30,19 @@
             resize: none;
             white-space:nowrap;
             color:black;
+            text-align:center;
+            font-size:24px;
+            line-height:24px;
         }
+
+        .pure-button {
+            margin: 0.25em 2em 0.25em 2em;
+        }
+
+        .footer {
+            z-index: 100;
+        }
+
     </style>
     <script src="app.js"></script>
 </head>
@@ -41,7 +59,6 @@
         </div>
     </div>
     <!-- End Header -->
-
     <!-- Begin Content -->
     <div class="splash-container">
         <div class="splash">
@@ -51,7 +68,10 @@
                 <noscript>Sorry, you need javascript to run this :(</noscript>
             </p>
             <p class="splash-subhead">
-                Your Wage per hour: $<textarea id="wageinput" name="wageinput" rows="1" cols="5"></textarea>
+                Your Wage per hour:
+                <div>
+                    <textarea id="wageinput" name="wageinput" rows="1" cols="5"></textarea>
+                </div>
             </p>
             <p>
                 <button class="pure-button pure-button-primary" id="startbutton" onclick="timer.startButtonClicked();">Start</button>
@@ -63,7 +83,6 @@
         </div>
     </div>
     <!-- End Content -->
-
     <!-- Begin Footer -->
     <div class="footer l-box is-center">
         <span>CSS by <a href="http://purecss.io">Pure.css</a>.&nbsp;&nbsp;&nbsp;&nbsp;</span>
