@@ -4,6 +4,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+enum State {
+    Idle,
+    Running
+}
+
 class WageTimer {
 
     // ---------------- Fields ----------------
@@ -17,6 +22,10 @@ class WageTimer {
 
     amount: Number;
 
+    currentState: State;
+
+    // ---------------- Constructor ----------------
+
     constructor(startButton: HTMLButtonElement, resetButton: HTMLButtonElement, amountText: HTMLSpanElement, wageText: HTMLTextAreaElement) {
         this.startButton = startButton;
         this.resetButton = resetButton;
@@ -25,27 +34,50 @@ class WageTimer {
         this.amount = 0.0;
         this.currentWage = 0.0;
         this.wageText.style.borderColor = "black";
+        this.wageText.style.borderWidth = "5px";
+        this.currentState = State.Idle;
     }
 
+    // ---------------- Functions ----------------
+
     startButtonClicked() {
-        if (this.validateWage()) {
-            this.wageText.style.borderColor = "black";
-            this.wageText.disabled = true;
+        if (this.currentState === State.Idle) {
+
+            if (this.validateWage()) {
+                this.wageText.style.borderColor = "black";
+                this.currentState = State.Running;
+            }
+            else {
+                this.wageText.style.borderColor = "red";
+            }
         }
-        else {
-            this.wageText.style.borderColor = "red";
-            this.wageText.style.borderWidth = "5px";
+        else if (this.currentState === State.Running) {
+            this.currentState = State.Idle;
         }
+
+        this.updateUi();
     }
 
     resetButtonClicked() {
         this.amount = 0.0;
-        this.updateAmountText();
-        this.wageText.disabled = false;
+        this.updateUi();
     }
 
     updateAmountText() {
         this.amountText.innerHTML = "$" + this.amount.toFixed(2);
+    }
+
+    updateUi() {
+        if (this.currentState == State.Idle) {
+            this.startButton.innerText = "Start";
+            this.wageText.disabled = false;
+        }
+        else if (this.currentState == State.Running) {
+            this.startButton.innerText = "Stop";
+            this.wageText.disabled = true;
+        }
+
+        this.updateAmountText();
     }
 
     validateWage(): boolean {
