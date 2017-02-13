@@ -18,11 +18,13 @@ class WageTimer {
     amountText: HTMLSpanElement;
     wageText: HTMLTextAreaElement;
 
-    currentWage: Number;
+    currentWage: number; // The current wage the user gave us.
 
-    amount: Number;
+    amount: number;  // The total amount we've made so far.
 
     currentState: State;
+
+    timerToken: number;
 
     // ---------------- Constructor ----------------
 
@@ -36,6 +38,8 @@ class WageTimer {
         this.wageText.style.borderColor = "black";
         this.wageText.style.borderWidth = "5px";
         this.currentState = State.Idle;
+
+        this.updateUi();
     }
 
     // ---------------- Functions ----------------
@@ -45,6 +49,7 @@ class WageTimer {
 
             if (this.validateWage()) {
                 this.wageText.style.borderColor = "black";
+                this.timerToken = setInterval(() => this.timerTick(), 1000);
                 this.currentState = State.Running;
             }
             else {
@@ -52,6 +57,7 @@ class WageTimer {
             }
         }
         else if (this.currentState === State.Running) {
+            clearTimeout(this.timerToken);
             this.currentState = State.Idle;
         }
 
@@ -61,6 +67,12 @@ class WageTimer {
     resetButtonClicked() {
         this.amount = 0.0;
         this.updateUi();
+    }
+
+    timerTick() {
+        // Convert our wage per hour to seconds, then add it to our total amount.
+        this.amount += ( this.currentWage / 60 / 60 );
+        this.updateAmountText();
     }
 
     updateAmountText() {
