@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="How much money have you made since you started the timer?">
-    <title>TypeScript HTML App</title>
+    <meta name="author" content="Seth Hendrick">
+    <meta name="keywords" content="Wage,Timer,seth,hendrick,fun,jgallstar1,xforever1313,money,dollars,salary">
+    <title>Wage Timer</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
     <link rel="stylesheet" href="https://files.shendrick.net/common/css/pure/pure-min.css" type="text/css" />
     <link rel="stylesheet" href="https://files.shendrick.net/common/css/pure/grids-responsive-min.css" type="text/css" />
@@ -65,19 +67,19 @@
     <div class="splash-container">
         <div class="splash">
             <p class="splash-subhead">Amount Earned:</p>
-            <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">$00.00</span></h1>
+            <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">$0.00</span></h1>
             <p class="splash-subhead">
                 <noscript style="color:red;">Sorry, you need javascript to run this :(</noscript>
             </p>
-            <p class="splash-subhead">
+            <div class="splash-subhead">
                 Input your wage per hour:
                 <div>
-                    <input id="wageinput" size="10" type="text" />.
+                    <input id="wageinput" size="10" type="text" />
                 </div>
                 <div>
                     <span id="errormessage" style="color:red;">&nbsp;</span>
                 </div>
-            </p>
+            </div>
             <p>
                 <button class="pure-button pure-button-primary" id="startbutton" onclick="timer.startButtonClicked();">Start</button>
                 <button class="pure-button pure-button-primary" id="resetbutton" onclick="timer.resetButtonClicked();">Reset</button>
