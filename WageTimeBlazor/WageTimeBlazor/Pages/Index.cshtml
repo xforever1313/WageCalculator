@@ -1,0 +1,105 @@
+﻿@page "/"
+
+<!-- Begin Content -->
+<div class="splash-container">
+    <div class="splash">
+        <p class="splash-subhead">Amount Earned:</p>
+        <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">@wageTimer.CurrentEarnings.ToString("C")</span></h1>
+        <p class="splash-subhead">
+            <noscript style="color:red;">Sorry, you need javascript to run this :(</noscript>
+        </p>
+        <div class="splash-subhead">
+            Input your wage per hour:
+            <div>
+                <input id="wageinput" size="10" type="text" bind="@wageTimer.InputValue" />
+            </div>
+            <div>
+                <span id="errormessage" style="color:red;">@wageTimer.ErrorMessage</span>
+            </div>
+        </div>
+        <p>
+            <button class="pure-button pure-button-primary" id="startbutton" onclick="@wageTimer.StartButtonClicked">@wageTimer.StartButtonText</button>
+            <button class="pure-button pure-button-primary" id="resetbutton" onclick="@wageTimer.ResetButtonClicked">Reset</button>
+        </p>
+        <p class="splash-subhead">
+            Use this tool to see how much money you've made (or lost) since starting the timer.
+        </p>
+    </div>
+</div>
+<!-- End Content -->
+
+@functions{
+
+    WageTimer wageTimer = new WageTimer();
+
+    class WageTimer
+    {
+        // ---------------- Enums ----------------
+
+        enum State
+        {
+            Idle,
+            Running
+        }
+
+        // ---------------- Fields ----------------
+
+        private State currentState;
+
+        // ---------------- Constructor ----------------
+
+        public WageTimer()
+        {
+            this.InputValue = string.Empty;
+            this.ErrorMessage = string.Empty;
+            this.CurrentEarnings = 0;
+            this.CurrentWage = 0;
+
+            this.StartButtonText = "Start";
+
+            this.currentState = State.Idle;
+        }
+
+        // ---------------- Properties ----------------
+
+        public string InputValue { get; set; }
+
+        public string ErrorMessage { get; private set; }
+
+        public decimal CurrentEarnings { get; private set; }
+
+        public decimal CurrentWage { get; private set; }
+
+        public string StartButtonText { get; private set; }
+
+        // ---------------- Functions ----------------
+
+        public void StartButtonClicked()
+        {
+            if( currentState == State.Idle )
+            {
+                if(decimal.TryParse(this.InputValue, out decimal value))
+                {
+                    this.CurrentWage = value;
+                    this.StartButtonText = "Stop";
+                    this.currentState = State.Running;
+                    this.ErrorMessage = string.Empty;
+                }
+                else
+                {
+                    this.ErrorMessage = "Input value is not a decimal number.";
+                }
+            }
+            else
+            {
+                this.StartButtonText = "Start";
+                this.currentState = State.Idle;
+            }
+        }
+
+        public void ResetButtonClicked()
+        {
+            this.CurrentEarnings = 0;
+        }
+    }
+}

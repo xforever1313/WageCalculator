@@ -8,3 +8,5 @@ build
 *.sdf
 /LogIrcBot/packages
 /LogIrcBot/*.userprefs
+app.js
+app.js.map
