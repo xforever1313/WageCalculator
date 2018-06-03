@@ -4,7 +4,7 @@
 <div class="splash-container">
     <div class="splash">
         <p class="splash-subhead">Amount Earned:</p>
-        <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">@wageTimer.CurrentEarnings.ToString("C")</span></h1>
+        <h1 class="splash-head"><span id="amountearned" style="font-size:larger;">$@wageTimer.CurrentEarnings.ToString("N2")</span></h1>
         <p class="splash-subhead">
             <noscript style="color:red;">Sorry, you need javascript to run this :(</noscript>
         </p>
@@ -30,9 +30,15 @@
 
 @functions{
 
-    WageTimer wageTimer = new WageTimer();
+    WageTimer wageTimer;
 
-    class WageTimer
+    protected override void OnInit()
+    {
+        wageTimer = new WageTimer();
+        wageTimer.OnTick += StateHasChanged;
+    }
+
+    class WageTimer : IDisposable
     {
         // ---------------- Enums ----------------
 
@@ -42,9 +48,20 @@
             Running
         }
 
+        // ---------------- Events ----------------
+
+        public event Action OnTick;
+
         // ---------------- Fields ----------------
 
         private State currentState;
+
+        private Timer timer;
+
+        /// <summary>
+        /// Update timer every 1 second.
+        /// </summary>
+        private const int timerDelay = 1000;
 
         // ---------------- Constructor ----------------
 
@@ -58,6 +75,8 @@
             this.StartButtonText = "Start";
 
             this.currentState = State.Idle;
+
+            this.timer = new Timer( this.OnTimerExpired, null, timerDelay, timerDelay );
         }
 
         // ---------------- Properties ----------------
@@ -100,6 +119,22 @@
         public void ResetButtonClicked()
         {
             this.CurrentEarnings = 0;
+        }
+
+        public void Dispose()
+        {
+            this.timer.Dispose();
+        }
+
+        private void OnTimerExpired( object sender )
+        {
+            if( this.currentState == State.Running )
+            {
+                // Convert our wage per hour to seconds, and then add it to our total amount.
+                this.CurrentEarnings += ( this.CurrentWage / 60 / 60 );
+
+                this.OnTick?.Invoke();
+            }
         }
     }
 }

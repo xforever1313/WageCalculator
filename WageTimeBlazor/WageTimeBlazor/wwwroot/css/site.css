@@ -1,4 +1,5 @@
 ﻿body {
+    min-width: 600px;
 }
 
 .splash {
@@ -8,7 +9,7 @@
 .splash-container {
     background-color: #003e08;
     overflow-y: visible;
-    height: 90%;
+    height: 100%;
 }
 
 #wageinput {
