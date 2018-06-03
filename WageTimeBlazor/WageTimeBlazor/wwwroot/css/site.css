@@ -2,14 +2,27 @@
     min-width: 600px;
 }
 
+.home-menu{
+    position:static;
+}
+
+.home-menu ul{
+    float:none; /* So menu items are on the same line as the title. */
+}
+
 .splash {
     top: 0px;
+    position: static;
+    min-height: 575px;
 }
 
 .splash-container {
+    position: static;
     background-color: #003e08;
     overflow-y: visible;
     height: 100%;
+    z-index: -1;
+    top: unset;
 }
 
 #wageinput {
