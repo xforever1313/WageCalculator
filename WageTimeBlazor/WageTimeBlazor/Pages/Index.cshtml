@@ -11,7 +11,7 @@
         <div class="splash-subhead">
             Input your wage per hour:
             <div>
-                <input id="wageinput" size="10" type="text" bind="@wageTimer.InputValue" />
+                <input id="wageinput" size="10" type="text" disabled="@wageTimer.InputTextDisabled" bind="@wageTimer.InputValue" />
             </div>
             <div>
                 <span id="errormessage" style="color:red;">@wageTimer.ErrorMessage</span>
@@ -69,6 +69,7 @@
         {
             this.InputValue = string.Empty;
             this.ErrorMessage = string.Empty;
+            this.InputTextDisabled = false;
             this.CurrentEarnings = 0;
             this.CurrentWage = 0;
 
@@ -91,6 +92,8 @@
 
         public string StartButtonText { get; private set; }
 
+        public bool InputTextDisabled { get; private set; }
+
         // ---------------- Functions ----------------
 
         public void StartButtonClicked()
@@ -101,6 +104,7 @@
                 {
                     this.CurrentWage = value;
                     this.StartButtonText = "Stop";
+                    this.InputTextDisabled = true;
                     this.currentState = State.Running;
                     this.ErrorMessage = string.Empty;
                 }
@@ -112,6 +116,7 @@
             else
             {
                 this.StartButtonText = "Start";
+                this.InputTextDisabled = false;
                 this.currentState = State.Idle;
             }
         }
